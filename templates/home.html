@@ -1,0 +1,9 @@
+{% extends "layouts.html" %}
+{% block title%}
+    {% for post in posts %}
+        <h1>Project Name:{{post.Project_Name}}</h1>
+        <p>Modules:{{post.Modules}}</p>
+        <p>Summary:{{post.Summary}}</p>
+    {% endfor %}
+{% endblock title%}
+
