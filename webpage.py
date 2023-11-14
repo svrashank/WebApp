@@ -9,7 +9,7 @@ posts = [{"Project_Name":"Mumbai Weather",
           "Modules":"Requests, BeautifulSoup, Pandas",
           "Summary":"Webscraping major financial indicators of Nifty 50 companies from Yahoo Finance"}]
 
-@app.route("/projects")
+@app.route("/")
 def projects():
     return render_template("home.html",posts = posts)
 
