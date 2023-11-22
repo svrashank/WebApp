@@ -42,3 +42,8 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+.form-sign .btn-primary {
+  color: #fff;
+  background-color: #455567;
+  border-color: #212529;
+}

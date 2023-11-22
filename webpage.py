@@ -4,14 +4,18 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def home():
-    return render_template("home.html")
+def signup():
+    return render_template("signin.html")
 
 @app.route("/qualifications")
 def explanations():
     return render_template("qualifications.html")
 
+@app.route("/home")
+def home():
+    return render_template("home.html")
 
-@app.route("/browse")
-def browse():
-    return render_template("browse.html")
+
+@app.route("/yourprofile")
+def yourprofile():
+    return render_template('yourprofile.html')
