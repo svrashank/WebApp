@@ -24,7 +24,14 @@
       </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Browse </button>
+    <div style = "text-align: center;">
+      <button class="btn btn-forgot" type="submit">Fogot Password?</button>
+      <hr>
+      <button class="btn btn-signup" formnovalidate type="submit" formaction="{{url_for('sign_up')}}">Sign up</button>
+
+    </div>
+
+    
 
     <p class="mt-5 mb-3 text-muted">&copy; 2023-2024</p>
   </form>
