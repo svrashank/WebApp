@@ -1,6 +1,46 @@
 {% extends 'layouts_profile.html' %}
 {% block content %}
-<h1>Project Title</h1>
-<p>Project Content goes here</p>
+<div class="media" style="background-color: rgb(118, 115, 113,0.7);">
+    <img src="{{ image_file }}" class="rounded profile-img">
+    <div class="media-body">
+        <h2 class="account-upperdisplay-heading ">{{ current_user.username }}</h2>
+        <p class="upper-profile-display">{{ current_user.email }}</p>
+        {% if current_user.DOB %}
+            <p class="upper-profile-display">DOB: {{ current_user.DOB.strftime('%d-%m-%Y') }}</p>
+        {% endif %}
+    </div>
+</div>
+<hr></hr>
+<div class="profile-header">
+    <ul class="nav nav-tabs justify-content-center" id="myTabs">
+        <li class="nav-item ">
+            <a class="nav-link active text-white" id="portfolio-tab" data-toggle="tab" href="#portfolio">Portfolio</a>
+        </li>
+        <li class="nav-item ">
+            <a class="nav-link text-white" id="qualification-tab" data-toggle="tab" href="#qualification">Qualification</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" id="work-experience-tab" data-toggle="tab" href="#work-experience">Work Experience</a>
+        </li>
+    </ul>
+</div>
+<div class="profile-block">
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="portfolio">
+            <h2>Profile Overview</h2>
+            <p>Profile Overview goes here</p>
+            <h2>Projects</h2>
+            <p>Project goes here</p>
+        </div>
+        <div class="tab-pane fade " id="qualification">
+            <h2>School</h2>
+            <h2>College</h2>
+        </div>
+        <div class="tab-pane fade" id="work-experience">
+            <h2>Company </h2>
+        </div>
+    </div>
+</div>
+<a class="btn btn-secondary" href="{{url_for('editprofile')}}" role="button">Edit Profile</a>
 
 {% endblock content %}

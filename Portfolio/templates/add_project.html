@@ -1,0 +1,55 @@
+{% extends 'layouts.html' %}
+{% block content %}
+<div class="content-section" style ="background-color: rgb(233, 233, 234);">
+  
+  <form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class = 'form-group'>
+      {{ form.project_title.label(class='form-control-label') }}
+      {% if form.project_title.errors %} 
+        {{ form.project_title(class='form-control is-invalid',placeholder="Title of your project") }}
+        <div class="invalid-feedback" id="flash-messages">
+          {% for error in form.project_title.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.project_title(class='form-control form-floating',placeholder="Title of your project") }}
+      {% endif %}
+    </div>
+
+    <div class = 'form-group'>
+      {{ form.project_overview.label(class='form-control-label') }}
+      {% if form.project_overview.errors %} 
+        {{ form.project_overview(class='form-control is-invalid',placeholder="What is your project about?") }}
+        <div class="invalid-feedback" id="flash-messages">
+          {% for error in form.project_overview.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.project_overview(class='form-control form-floating',placeholder="What is your project about") }}
+      {% endif %}
+    </div>
+
+    <div class = 'form-group'>
+      {{ form.project_url.label(class='form-control-label') }}
+      {% if form.project_url.errors %} 
+        {{ form.project_url(class='form-control is-invalid',placeholder="Link to view your project") }}
+        <div class="invalid-feedback" id="flash-messages">
+          {% for error in form.project_url.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.project_url(class='form-control form-floating',placeholder="Link to view your project") }}
+      {% endif %}
+    </div>
+    <div class="form-group " >  
+      {{ form.add(class="btn btn-secondary mt-2") }}
+    </div>
+  </form>
+</div>
+
+{% endblock content %}
+

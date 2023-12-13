@@ -1,6 +1,21 @@
-{% extends 'layouts_profile.html' %}
+{% extends 'layouts.html' %}
 {% block content %}
-<h1>Project Title</h1>
-<p>Project Content goes here</p>
-
+<h1 class="mb-5">My Projects</h1>
+{% for project in projects %}
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#">{{ project.project_title }}</a>
+        <small class="text-muted">{{ project.project_overview }}</small>
+      <!-- </div>
+      <h2><a class="article-title" href="#">{{ post.Experience }}</a></h2>
+      <p class="article-content">{{ post.content }}</p>
+    </div> -->
+  </article>
+{% endfor %}
+<a href='{{ url_for("add_project") }}'> 
+    <button class="btn btn-primary mb-2"> 
+        Add new Project 
+    </button> 
+</a> 
 {% endblock content %}
