@@ -1,0 +1,19 @@
+{% extends 'layouts_profile.html' %}
+{% block content %}
+  <h2>Add Skills</h2>
+  <form method="POST" action="{{ url_for('add_skill') }}">
+    {{ form.hidden_tag() }}
+    {% for field in form if 'skill' in field.name %}
+      <div class="form-group">
+        <label for="{{ field.name }}">{{ field.label.text }}:</label>
+        {{ field(class='form-control skill-input', id=field.id, required=true) }}
+      </div>
+      {% set value_field_name = 'skill_value_' + field.name.split('_')[-1] %}
+      <div class="form-group">
+        <label for="{{ value_field_name }}">Skill Range:</label>
+        {{ form[value_field_name](class='form-control-range skill-range', id=value_field_name, min=0, max=100, value=50) }}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Save Skills</button>
+  </form>
+{% endblock %}  

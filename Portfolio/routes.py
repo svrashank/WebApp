@@ -1,6 +1,6 @@
 from Portfolio import app,db,bcrypt 
 import flask 
-from Portfolio.forms import LoginForm,RegistrationForm ,EditProfile,ProjectForm
+from Portfolio.forms import LoginForm,RegistrationForm ,EditProfile,ProjectForm,SkillForm
 from flask import render_template, url_for,flash,redirect,request,session,get_flashed_messages
 from Portfolio.models import User,Profile,Project 
 from flask_login import login_user,current_user,logout_user,login_required
@@ -161,8 +161,13 @@ def sign_out():
 
 
 @app.route("/skills/add_skill",methods=['GET','POST'])
-@login_required
 def add_skill():
-    # form = ProjectForm()
-    # projects = Project.query.all()
-    return render_template('add_skill.html')
+    form = SkillForm()
+    # if form.validate_on_submit():
+    return render_template('add_skill.html',form = form)
+
+@app.route("/skills",methods=['GET','POST'])
+def skills():
+    # form = SkillForm()
+    # if form.validate_on_submit():
+    return render_template('skills.html')

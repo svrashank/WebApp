@@ -36,6 +36,7 @@ class Project(db.Model):
     project_title = db.Column(db.String(100),nullable = False)
     project_overview = db.Column(db.Text,nullable = False)
     project_url = db.Column(db.String(300),nullable = False)
+
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
 
     

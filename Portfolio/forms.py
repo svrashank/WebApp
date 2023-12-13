@@ -66,13 +66,22 @@ class ProjectForm(FlaskForm):
     done = SubmitField("Done")
     # remove = SubmitField('Remove')
 
-class SkillForm(FlaskForm):
-    skills =[]
-    skill_values = []
-    for i in range(1,8):
-        skill = StringField(f"Skill {i}")
-        skill_value = IntegerField(f"Skill {i} Range")
-        skills.append(skill)
-        skill_values.append(skill_value)
-    add = SubmitField("Add")
+# class SkillForm(FlaskForm):
+#     skills =[]
+#     skill_values = []
+#     for i in range(1,8):
+#         skill = StringField(f"Skill {i}")
+#         skill_value = IntegerField(f"Skill {i} Range")
+#         skills.append(skill)
+#         skill_values.append(skill_value)
+#     add = SubmitField("Add")
     
+class SkillForm(FlaskForm):
+    # Dynamically create fields in the __init__ method
+    def __init__(self, *args, **kwargs):
+        super(SkillForm, self).__init__(*args, **kwargs)
+        for i in range(1, 8):
+            setattr(SkillForm, f'skill_{i}', StringField(f"Skill {i}"))
+            setattr(SkillForm, f'skill_value_{i}', IntegerField(f"Skill {i} Range"))
+
+    add = SubmitField("Add")
