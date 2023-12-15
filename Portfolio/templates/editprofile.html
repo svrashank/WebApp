@@ -1,13 +1,16 @@
-{% extends 'layouts.html' %}
+{% extends 'layouts_profile.html' %}
 {% block content %}
-<div class="content-section" style ="background-color: rgb(233, 233, 234);">
-  <div class="media">
-      <img src="{{ image_file }}" class="rounded-circle account-img">
-      <div class="media-body">
-          <h2 class="account-heading">{{ current_user.username }}</h2>
-          <p class="text-secondary">{{ current_user.email }}</p>
-      </div>
-  </div>
+<div class="jumbotron">
+  <div class="content-section" style ="background-color: rgb(113, 186, 192);">
+    <div class="media">
+        <img src="{{ image_file }}" class="rounded-circle account-img">
+        <div class="media-body">
+            <h2 class="display-4 text-white">{{ current_user.username }}</h2>
+            <p class="text-white">{{ current_user.email }}</p>
+        </div>
+    </div>
+</div>
+
   <form method="POST" enctype="multipart/form-data">
     <div class = 'form-group'>
       {{ form.hidden_tag() }}
@@ -70,13 +73,6 @@
         </div>
       {% endif %}
     </div>
-    <!-- <div class = 'form-group'>
-      <div class="skill">
-        {{ form.skill.label()}}
-        {{ form.skill(id='skill-value',type='range',min="0",max="100",value="50)}}
-        <output id="slider-value">50</output>
-     </div>
-    </div> -->
     <div class = 'form-group'>
       {{ form.profile_overview.label(class='form-control-label') }}
       {% if form.profile_overview.errors %} 

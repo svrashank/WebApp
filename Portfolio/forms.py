@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm 
 from flask_wtf.file import FileField,FileAllowed
 from wtforms import StringField, PasswordField, BooleanField,SubmitField,EmailField,validators,SelectField,TextAreaField,DateField, IntegerField
-from wtforms.validators import DataRequired,Length, EqualTo, ValidationError
+from wtforms.validators import DataRequired,Length, EqualTo, ValidationError,NumberRange
 from Portfolio import app,db
 from Portfolio.models import User 
 from flask import redirect
@@ -77,11 +77,16 @@ class ProjectForm(FlaskForm):
 #     add = SubmitField("Add")
     
 class SkillForm(FlaskForm):
-    # Dynamically create fields in the __init__ method
-    def __init__(self, *args, **kwargs):
-        super(SkillForm, self).__init__(*args, **kwargs)
-        for i in range(1, 8):
-            setattr(SkillForm, f'skill_{i}', StringField(f"Skill {i}"))
-            setattr(SkillForm, f'skill_value_{i}', IntegerField(f"Skill {i} Range"))
+    update = SubmitField("Update")
 
-    add = SubmitField("Add")
+# Create a function to generate the form with dynamic fields
+def create_skill_form():
+    class DynamicSkillForm(SkillForm):
+        pass
+
+    # Add fields for skills and skill values to the dynamic form
+    for i in range(1, 8):
+        setattr(DynamicSkillForm, f'skill_{i}', StringField(f"Skill {i}"))
+        setattr(DynamicSkillForm, f'skill_value_{i}', IntegerField(f"Skill {i} Range",validators=[NumberRange(min=0,max=100)]))
+
+    return DynamicSkillForm()

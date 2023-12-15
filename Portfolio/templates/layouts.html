@@ -37,6 +37,9 @@
             <li class="nav-item active ">
               <a class="nav-link" href="{{url_for('projects')}}">Manage Projects <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item active ">
+              <a class="nav-link" href="{{url_for('skills')}}">Skills <span class="sr-only">(current)</span></a>
+            </li>
           {% endif %}
           <!-- <li class="nav-item">
             <a class="nav-link active" href="{{url_for('sign_out')}}">Sign out</a>
@@ -51,6 +54,7 @@
             <a class="nav-item nav-link mr-md-2" href="{{url_for('sign_out')}}">Sign out</a>
           {% else %}
             <a class="nav-item nav-link mr-md-2" href="{{url_for('sign_in')}}">Sign in</a>
+
           {% endif %}
         </div> 
       </div>

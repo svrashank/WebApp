@@ -49,3 +49,6 @@ class Skills(db.Model):
     skill_name = db.Column(db.String(50))
     skill_value = db.Column(db.Integer)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable = False)
+
+    def __repr__(self) -> str:
+        return f"Skill Name:{self.skill_name}, Skill value: {self.skill_value}, User :{self.user_id}"

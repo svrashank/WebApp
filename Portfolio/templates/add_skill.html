@@ -1,19 +1,29 @@
 {% extends 'layouts_profile.html' %}
 {% block content %}
-  <h2>Add Skills</h2>
-  <form method="POST" action="{{ url_for('add_skill') }}">
-    {{ form.hidden_tag() }}
-    {% for field in form if 'skill' in field.name %}
-      <div class="form-group">
-        <label for="{{ field.name }}">{{ field.label.text }}:</label>
-        {{ field(class='form-control skill-input', id=field.id, required=true) }}
-      </div>
-      {% set value_field_name = 'skill_value_' + field.name.split('_')[-1] %}
-      <div class="form-group">
-        <label for="{{ value_field_name }}">Skill Range:</label>
-        {{ form[value_field_name](class='form-control-range skill-range', id=value_field_name, min=0, max=100, value=50) }}
-      </div>
-    {% endfor %}
-    <button type="submit" class="btn btn-success">Save Skills</button>
-  </form>
-{% endblock %}  
+  <div class="card " >
+    <h2 class="card-header mb-2 text-white" style="background-color: rgb(80, 80, 80)"> Add Skills</h2>
+    <div class="card-body" style="background-color: rgb(195, 195, 195,0.7);">
+      <form method="POST" action="{{ url_for('add_skill') }}" class="form-row">
+        {{ form.hidden_tag() }}
+        {% for field in form if 'skill' in field.name %}
+        {% if "skill_value" in field.name %}
+          <div class="form-group col-md-6 mt-4  ">
+            <!-- <label for="{{ field.id }}" >{{ field.label.text }}:</label> -->
+            {{ field(class='form-control', id=field.id, required=true,class='col-md-3 ',placeholder="Skill Value") }}
+          </div>
+        {% else %}
+            <div class="form-group col-md-6">
+                <label for="{{ field.id }}" class="mb-0" >{{ field.label.text }}:</label>
+                {{ field(class='form-control', id=field.id, required=true,class='form-control',placeholder="Skill Name") }}
+            </div>
+        {% endif %}
+        {% endfor %}
+        {{ form.update(class='btn btn-success')}}
+        <!-- <button type="submit" class="btn btn-success">Save Skills</button> -->
+      </form>
+    </div>
+</div>
+  
+
+{% endblock %}
+  

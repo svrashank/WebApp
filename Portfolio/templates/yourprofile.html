@@ -1,15 +1,15 @@
 {% extends 'layouts_profile.html' %}
 {% block content %}
-<div class="media" style="background-color: rgb(118, 115, 113,0.7);">
-    <img src="{{ image_file }}" class="rounded profile-img">
-    <div class="media-body">
-        <h2 class="account-upperdisplay-heading ">{{ current_user.username }}</h2>
-        <p class="upper-profile-display">{{ current_user.email }}</p>
-        {% if current_user.DOB %}
-            <p class="upper-profile-display">DOB: {{ current_user.DOB.strftime('%d-%m-%Y') }}</p>
-        {% endif %}
-    </div>
-</div>
+<div class="jumbotron">
+    <div class="content-section" style ="background-color: rgb(98, 135, 138);">
+      <div class="media">
+          <img src="{{ image_file }}" class="profile-img">
+          <div class="media-body">
+              <h2 class="display-4 text-white">{{ current_user.username }}</h2>
+              <p class="text-white">{{ current_user.email }}</p>
+          </div>
+      </div>
+  </div>
 <hr></hr>
 <div class="profile-header">
     <ul class="nav nav-tabs justify-content-center" id="myTabs">
