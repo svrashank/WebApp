@@ -27,10 +27,38 @@
 <div class="profile-block">
     <div class="tab-content">
         <div class="tab-pane fade show active" id="portfolio">
-            <h2>Profile Overview</h2>
-            <p>Profile Overview goes here</p>
-            <h2>Projects</h2>
-            <p>Project goes here</p>
+            <div class="card mb-1 mt-1">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5 class="mb-2"> Projects</h5>
+                                {% for project in user.project %}
+                                    <div class="mb-4">
+                                        <b class="text-dark">{{ loop.index }}: {{ project.project_title }}</b>
+                                        <p class="">{{ project.project_overview }}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-4">
+                                <h5 class="mb-2">Skills</h5>
+                                {% for skill in user.skill %}
+                                    <div class="mb-3">
+                                        <p class="mb-1">{{ skill.skill_name }}</p>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ skill.skill_value }}%; background-color: rgb(98, 135, 138);" aria-valuenow="{{ skill.skill_value }}" aria-valuemin="0" aria-valuemax="100">{{ skill.skill_value }}</div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+                
+            </div>
         </div>
         <div class="tab-pane fade " id="qualification">
             <h2>School</h2>

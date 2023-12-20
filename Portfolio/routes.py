@@ -92,7 +92,7 @@ def show_sign_up():
 @app.route("/home")
 def home():
     page = request.args.get('page',1,type=int)
-    users = User.query.paginate(per_page=1,page=page)
+    users = User.query.paginate(per_page=3,page=page)
     return render_template("home.html",users=users)
 
 @app.route("/user/<username>")
