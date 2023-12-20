@@ -42,7 +42,7 @@ body {
   }
   
   a.article-title:hover {
-    color: #428bca;
+    color: #ffffff;
     text-decoration: none;
   }
   
@@ -58,15 +58,30 @@ body {
   
   .article-metadata {
     padding-bottom: 1px;
-    margin-bottom: 4px;
+    margin-bottom: 1px;
     border-bottom: 1px solid #e3e3e3
   }
-  
-  .article-metadata a:hover {
-    color: #333;
+  .project-title-link:link {
+    color: #ffffff;
     text-decoration: none;
+    
   }
-  
+  /* .project-title-link:hover {
+    color: #000000;
+    text-decoration: none;
+  } */
+
+  .project-title-link:visited {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.project-title-link:hover,
+.project-title-link:active {
+    color: #000000;
+    text-decoration: none;
+}
+
   .article-svg {
     width: 25px;
     height: 25px;
@@ -97,7 +112,7 @@ body {
     margin-bottom: 2 em ;
   }
 
-  .account-upperdisplay-heading {
+  .account-upper .display-heading {
     font-size: 2.5rem;
     margin-bottom: 2rem;
     margin-top: 0.5rem
@@ -111,4 +126,28 @@ body {
   color: rgb(146, 42, 42) 
 }
 
+.article-metadata .article-metadata-head{
+  background-color: #5f788a;
+  font-size: large;
+  color:#474747;
+}
+.qualification-title a:link {
+  color: #5c5b5b;
+  text-decoration: none;
+}
+.qualification-title:visited {
+  color: #000000;
+  text-decoration: none;
+}
+.qualification-title:hover,
+.qualification-title:active {
+  color: #7a7676;
+  text-decoration: none;
+}
+
+.home-profile-image{
+  height: 140px;
+  width: 120px;
+  margin-right: 20px;
+}
 /* <a href="https://www.freepik.com/free-vector/abstract-gray-papercut-style-layers-background-design_8290123.htm#query=layered%20background&position=29&from_view=keyword&track=ais&uuid=3d58ab8c-26b1-4c99-98f1-672ceed13730">Image by starline</a> on Freepik */

@@ -1,8 +1,8 @@
 from Portfolio import app,db,bcrypt 
 import flask 
-from Portfolio.forms import LoginForm,RegistrationForm ,EditProfile,ProjectForm,create_skill_form
+from Portfolio.forms import LoginForm,RegistrationForm ,EditProfile,ProjectForm,create_skill_form,QualificationsForm
 from flask import render_template, url_for,flash,redirect,request,session,get_flashed_messages
-from Portfolio.models import User,Profile,Project,Skills 
+from Portfolio.models import User,Project,Skills,Qualifications
 from flask_login import login_user,current_user,logout_user,login_required
 import secrets
 import os 
@@ -34,7 +34,7 @@ def sign_in():
                 return flask.abort(400)
             return redirect(next or url_for('home')) 
         else:
-            flash("Wrong email or password,please try again")
+            flash("Wrong email or password,please try again",'error')
     return render_template("signin.html",title = "Login",form = form)
 
 
@@ -69,10 +69,11 @@ def save_picture(form_picture):
     _,file_ext = os.path.splitext(form_picture.filename)
     picture_filename = random_hex + file_ext
     picture_path = os.path.join(app.root_path,"static/profile_pics",picture_filename)
-    output_size = (125,125)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
+    form_picture.save(picture_path)
+    # output_size = (125,125)
+    # i = Image.open(form_picture)
+    # i.thumbnail(output_size)
+    # i.save(picture_path)
     return picture_filename
 
 def save_resume(form_resume_file):
@@ -87,15 +88,21 @@ def save_resume(form_resume_file):
 def show_sign_up():
     return render_template("sign_up.html", title="Sign Up", form=RegistrationForm())
 
-@app.route("/qualifications")
-@login_required
-def qualifications():
-    return render_template("qualifications.html")
  
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    page = request.args.get('page',1,type=int)
+    users = User.query.paginate(per_page=1,page=page)
+    return render_template("home.html",users=users)
 
+@app.route("/user/<username>")
+def user_profile(username):
+    # page = request.args.get('page',1,type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    projects = Project.query.filter_by(user_id = user.id)
+    skills = Skills.query.filter_by(user_id = user.id)
+    qualifications = Qualifications.query.filter_by(user_id = user.id)
+    return render_template("user_profile.html",user=user,projects=projects,skills=skills,qualifications=qualifications)
 
 @app.route("/yourprofile",methods=['GET','POST'])
 @login_required
@@ -120,6 +127,9 @@ def editprofile():
         if form.resume.data :
             resume_file = save_resume(form.resume.data)
             current_user.resume = resume_file
+        if form.profile_overview.data :
+            if form.profile_overview.data != current_user.profile_overview:
+                current_user.profile_overview =form.profile_overview.data
         current_user.email = form.email.data 
         current_user.username = form.username.data 
         db.session.commit()
@@ -129,25 +139,157 @@ def editprofile():
         form.username.data = current_user.username 
         form.email.data = current_user.email 
         form.dob.data = current_user.DOB
+        form.profile_overview.data = current_user.profile_overview
+        form.experience.data = current_user.experience
     return render_template('editprofile.html',image_file=image_file,title='Edit profile',form = form)
 
-@app.route("/projects",methods=['GET','POST'])
+
+
+def delete_user(user_id):
+    # Get the user by ID
+    user = User.query.get(user_id)
+
+    if user:
+        try:
+            # Delete associated data (profile, project, skills, qualifications)
+            print(f"Deleting associated data for user {user_id}")
+            Project.query.filter_by(user_id=user.id).delete()
+            Skills.query.filter_by(user_id=user.id).delete()
+            Qualifications.query.filter_by(user_id=user.id).delete()
+
+            # Delete the user
+            print(f"Deleting user {user_id}")   
+            db.session.delete(user)
+            db.session.commit()
+
+            print(f"User {user_id} deleted successfully")
+            return True
+        except Exception as e:
+            # Handle exceptions (e.g., database errors)
+            print(f"Error deleting user {user_id}: {e}")
+            db.session.rollback()
+            return False
+    else:
+        print(f"User {user_id} not found")
+        return False
+
+
+@app.route("/editprofile/delete",methods = ["GET","POST"])
+@login_required
+def delete_account():
+    user_id = current_user.id
+    delete_user(user_id)
+    return redirect(url_for('sign_up'))
+
+@app.route("/projects",methods=['GET'])
 @login_required
 def projects():
-    # form = ProjectForm()
-    # projects = Project.query.all()
-    return render_template('projects.html')
+    projects = Project.query.filter_by(user_id=current_user.id).all()
+    return render_template('projects.html',projects=projects)
+
+@app.route("/projects/<int:project_id>",methods=['GET','POST'])
+@login_required
+def curr_project(project_id):
+    # projects = Project.query.filter_by(user_id=current_user.id).all()
+    curr_project = Project.query.get_or_404(project_id)
+    return render_template('curr_projects.html',curr_project=curr_project)
+
+
+@app.route("/projects/<int:project_id>/update",methods=['GET','POST'])
+@login_required
+def update_project(project_id):
+    form = ProjectForm()
+    curr_project = Project.query.get_or_404(project_id)
+    if form.validate_on_submit():
+        curr_project.project_title = form.project_title.data
+        curr_project.project_overview = form.project_overview.data
+        curr_project.project_url = form.project_url.data
+        db.session.commit()
+        flash(f"Your project {curr_project.project_title} has been updated",'success')
+        return redirect(url_for('projects'))
+    elif request.method == "GET":
+        form.project_title.data = curr_project.project_title
+        form.project_overview.data = curr_project.project_overview
+        form.project_url.data = curr_project.project_url
+    return render_template('add_project.html',curr_project=curr_project,form=form)
+
+@app.route("/projects/<int:project_id>/delete",methods=['POST'])
+@login_required
+def delete_project(project_id):
+    curr_project = Project.query.get_or_404(project_id)
+    db.session.delete(curr_project)
+    db.session.commit()
+    flash("Your project has been deleted",'success')
+    return redirect(url_for('projects'))
 
 @app.route("/projects/add_projects",methods=['GET','POST'])
+@login_required
 def add_project():
     form = ProjectForm()
     if form.validate_on_submit():
-        post = Project(project_title=form.project_title.data, project_overview=form.project_overview.data, project_url=form.project_url.data, author=current_user)
-        db.session.add(post)
+        project = Project(project_title=form.project_title.data, project_overview=form.project_overview.data,
+                           project_url=form.project_url.data,user_id=current_user.id)
+        db.session.add(project)
         db.session.commit()
-        flash('Your Project has been added !!')
+        flash('Your Project has been added !!','success')
         return redirect(url_for('projects'))
     return render_template('add_project.html',form=form)
+
+
+
+
+@app.route("/qualifications", methods=['GET', 'POST'])
+@login_required
+def qualifications():
+    user_qualifications = Qualifications.query.filter_by(user_id=current_user.id).all()
+    return render_template('qualifications.html', user_qualifications=user_qualifications)
+
+@app.route("/qualifications/add_qualification", methods=['GET', 'POST'])
+@login_required
+def add_qualification():
+    form = QualificationsForm()
+    if form.validate_on_submit():
+        Course = Qualifications(course=form.course.data,user_id = current_user.id)
+        db.session.add(Course)
+        db.session.commit()
+        flash("Your Quallification has been added!!",'success')
+        return redirect(url_for('qualifications'))
+   
+    return render_template('add_qualification.html', form=form)
+
+
+@app.route("/qualifications/<int:qualification_id>",methods=['GET','POST'])
+@login_required
+def curr_qualification(qualification_id):
+    # projects = Project.query.filter_by(user_id=current_user.id).all()
+    curr_qualification = Qualifications.query.get_or_404(qualification_id)
+    return render_template('curr_qualification.html',curr_qualification=curr_qualification)
+
+@app.route("/qualifications/<int:qualification_id>/update",methods=['GET','POST'])
+@login_required
+def update_qualification(qualification_id):
+    form = QualificationsForm()
+    curr_qualification = Qualifications.query.get_or_404(qualification_id)
+    if form.validate_on_submit():
+        print(f"Form data before update: {form.course.data}")
+        print(f"Current qualification course before update: {curr_qualification.course}")
+        curr_qualification.course = form.course.data
+
+        db.session.commit()
+        flash(f"Your qualifications {curr_qualification.course} has been updated",'success')
+        return redirect(url_for('qualifications'))
+    elif request.method == "GET":
+        form.course.data = curr_qualification.course
+    return render_template('add_qualification.html',curr_qualification=curr_qualification,form=form)
+
+@app.route("/qualifications/<int:qualification_id>/delete",methods=['POST'])
+@login_required
+def delete_qualification(qualification_id):
+    curr_qualification = Qualifications.query.get_or_404(qualification_id)
+    db.session.delete(curr_qualification)
+    db.session.commit()
+    flash("Your qualifications has been deleted",'success')
+    return redirect(url_for('qualifications'))
 
 @app.route("/other interests")
 @login_required
@@ -200,4 +342,11 @@ def add_skill():
 
 @app.route("/skills",methods=['GET','POST'])
 def skills():
-    return render_template('skills.html')
+    user_skills = Skills.query.filter_by(user_id=current_user.id).all() 
+    return render_template('skills.html',user_skills=user_skills)
+
+
+
+
+
+

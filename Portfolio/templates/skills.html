@@ -2,9 +2,30 @@
 {% block content %}
 <div class="jumbotron">
     <h1 class="display-4">Skills</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <p class="lead">Add up to seven skills most relevant to you</p>
     <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <!-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p> -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Skill </th>
+              <th scope="col">Value</th>
+              <!-- <th scope="col">Handle</th> -->
+            </tr>
+          </thead>
+        {% for skill in user_skills %}
+         
+            <tbody>
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ skill.skill_name }}</td>
+                <td>{{ skill.skill_value }}</td>
+            </tr>
+            </tbody>
+
+        {% endfor %}
+      </table>
     <a href='{{ url_for("add_skill") }}'> 
         <button class="btn btn-primary mb-2"> 
             Update Skills 

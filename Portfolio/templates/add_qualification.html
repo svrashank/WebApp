@@ -1,0 +1,25 @@
+{% extends 'layouts_profile.html' %}
+{% block content %}
+<div class="jumbotron">
+<form method="POST" action="{{ url_for('add_qualification') }}">
+  <div class = 'form-group'>
+    {{ form.hidden_tag() }}
+    {{ form.course.label(class='form-control-label') }}
+    {% if form.course.errors %} 
+      {{ form.course(class='form-control is-invalid',placeholder="Course name and grades if applicable ") }}
+      <div class="invalid-feedback" id="flash-messages">
+        {% for error in form.course.errors %}
+          <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+      {{ form.course(class='form-control form-floating',placeholder="Course name and grades if applicable ") }}
+    {% endif %}
+  </div>
+  <div class="form-group " >  
+    {{ form.update(class="btn btn-secondary mt-2") }}
+  </div>
+</form>
+</div>
+{% endblock %}
+

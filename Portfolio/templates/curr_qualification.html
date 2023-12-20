@@ -1,0 +1,40 @@
+{% extends 'layouts_profile.html' %}
+{% block content %}
+<div class="jumbotron">
+ <div class="form-control"> {{ curr_qualification.course }}</div>
+  <div class="btn btn-group">
+        <!-- Update button -->
+        <a href='{{ url_for("update_qualification", qualification_id = curr_qualification.id) }}' class="btn btn-info">
+          Update
+        </a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger ml-2" data-toggle="modal" data-target="#deleteModal">
+          Delete 
+        </button>
+  </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to delete?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Once deleted the project cannot be recovered</p>
+          </div>
+          <div class="modal-footer">  
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <form action="{{ url_for('delete_qualification', qualification_id = curr_qualification.id) }}" method="POST">
+              <input type="submit" class="btn btn-danger" value ='Delete'>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock content %}

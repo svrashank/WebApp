@@ -35,9 +35,9 @@ class EditProfile(FlaskForm):
     username = StringField('Username',validators=[DataRequired(),Length(min=2,max=20)])
     email = EmailField('Email',validators=[DataRequired()])
     picture = FileField("Update Profile Picture",validators=[FileAllowed(['jpg','png'])])
-    profile_overview = TextAreaField("Profile Overview",validators=[DataRequired(),Length(min=10,max=180)],render_kw={'rows': 3})
+    profile_overview = TextAreaField("Profile Overview",validators=[Length(min=0,max=180)],render_kw={'rows': 3})
     skill = StringField("Skill")
-    skill_value = IntegerField("Skill Range")
+    experience = StringField("Experience")
     projects = StringField("Projects")
     dob = DateField("Date of Birth")
     resume = FileField("Upload Resume",validators=[FileAllowed(['pdf'])])
@@ -66,27 +66,21 @@ class ProjectForm(FlaskForm):
     done = SubmitField("Done")
     # remove = SubmitField('Remove')
 
-# class SkillForm(FlaskForm):
-#     skills =[]
-#     skill_values = []
-#     for i in range(1,8):
-#         skill = StringField(f"Skill {i}")
-#         skill_value = IntegerField(f"Skill {i} Range")
-#         skills.append(skill)
-#         skill_values.append(skill_value)
-#     add = SubmitField("Add")
-    
+
 class SkillForm(FlaskForm):
     update = SubmitField("Update")
 
-# Create a function to generate the form with dynamic fields
 def create_skill_form():
     class DynamicSkillForm(SkillForm):
         pass
 
-    # Add fields for skills and skill values to the dynamic form
     for i in range(1, 8):
         setattr(DynamicSkillForm, f'skill_{i}', StringField(f"Skill {i}"))
         setattr(DynamicSkillForm, f'skill_value_{i}', IntegerField(f"Skill {i} Range",validators=[NumberRange(min=0,max=100)]))
 
     return DynamicSkillForm()
+
+class QualificationsForm(FlaskForm):
+    update = SubmitField("Update")
+    course = StringField('Course')
+

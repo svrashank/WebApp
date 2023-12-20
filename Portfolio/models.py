@@ -13,22 +13,13 @@ class User(db.Model,UserMixin):
     password = db.Column(db.String(60),nullable=False)
     DOB = db.Column(db.Date)
     resume = db.Column(db.String(20))
-    profile = db.relationship('Profile',backref='author',lazy=True)
-    # resume = db.Column(db.File)
+    profile_overview = db.Column(db.Text)
+    experience = db.Column(db.Text) 
     project = db.relationship('Project',backref='author',lazy=True)
     skill = db.relationship("Skills",backref='author',lazy=True)
-
+    qualification = db.relationship("Qualifications",backref='author',lazy=True)
     def __repr__(self) -> str:
-        return f"User('{self.username}','{self.email}','{self.DOB}')"
-
-class Profile(db.Model):
-    id = db.Column(db.Integer,primary_key = True)
-    skills = db.Column(db.String ,nullable= False)
-    profile_overview = db.Column(db.Text ,nullable = False)
-    user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
-
-    def __repr__(self) -> str:
-        return f"User('{self.skills}','{self.user_id}')"
+        return f"User('{self.username}'|| '{self.email}'|| '{self.DOB}')"
 
 
 class Project(db.Model):
@@ -39,10 +30,8 @@ class Project(db.Model):
 
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
 
-    
-
     def __repr__(self) -> str:
-        return f"Project('{self.project_title}')"
+        return f"{self.project_title}"
         
 class Skills(db.Model):
     id = db.Column(db.Integer,primary_key = True)
@@ -51,4 +40,15 @@ class Skills(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable = False)
 
     def __repr__(self) -> str:
-        return f"Skill Name:{self.skill_name}, Skill value: {self.skill_value}, User :{self.user_id}"
+        return f"{self.skill_name} || {self.skill_value} || {self.user_id}"
+    
+
+class Qualifications(db.Model):
+    id = db.Column(db.Integer,primary_key = True)
+    course = db.Column(db.String(100))
+    user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable = False)
+
+    def __repr__(self) -> str:
+        return f"{self.course_title} || {self.user_id}"
+
+

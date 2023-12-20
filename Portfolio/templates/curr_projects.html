@@ -1,0 +1,52 @@
+{% extends 'layouts_profile.html' %}
+{% block content %}
+<div class="jumbotron">
+  <h1 class="display-4">My Projects</h1>
+  <p class="lead">Projects help display what you the best, make sure you display all your best ones</p>
+  <hr class="my-4">
+  <article class="media content-section">
+    <div class="media-body">
+      <div class="article-metadata">
+        <div class="article-metadata article-metadata-head">
+          <a class="project-title-link" href="#">{{ curr_project.project_title }}</a>
+        </div>
+        <hr>
+        <p class="text-muted">{{ curr_project.project_overview }}</p>
+
+  </article>
+  <div class="btn btn-group">
+        <!-- Update button -->
+        <a href='{{ url_for("update_project", project_id=curr_project.id) }}' class="btn btn-info">
+          Update
+        </a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger ml-2" data-toggle="modal" data-target="#deleteModal">
+          Delete 
+        </button>
+  </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to delete?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Once deleted the project cannot be recovered</p>
+          </div>
+          <div class="modal-footer">  
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <form action="{{ url_for('delete_project',project_id = curr_project.id) }}" method="POST">
+              <input type="submit" class="btn btn-danger" value ='Delete'>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock content %}
