@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm 
 from flask_wtf.file import FileField,FileAllowed
-from wtforms import StringField, PasswordField, BooleanField,SubmitField,EmailField,validators,SelectField,TextAreaField,DateField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField,SubmitField,EmailField,validators,SelectField,TextAreaField,DateField, IntegerField, SearchField
 from wtforms.validators import DataRequired,Length, EqualTo, ValidationError,NumberRange
 from Portfolio import app,db
 from Portfolio.models import User 
@@ -84,3 +84,6 @@ class QualificationsForm(FlaskForm):
     update = SubmitField("Update")
     course = StringField('Course')
 
+class searchForm(FlaskForm):
+    input = StringField('input')
+    search = SubmitField('Search')

@@ -1,0 +1,23 @@
+{% extends 'layouts.html' %}
+{% block content %}
+<div class="jumbotron">
+  <h1 class="display-4">Profiles</h1>
+  <!-- <p class="lead">Add up to seven skills most relevant to you</p> -->
+  <hr class="my-4">
+  <div class="post-section">
+    <article class="media content-section mt-3">
+
+        <img src="{{ url_for('static',filename='profile_pics/' + user.image_file) }}" alt="Profile Picture Post" class="mr-3 img-fluid rounded-circle home-profile-image" width="50">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{{ url_for('user_profile',username=user.username)}}">{{ user.username }}</a>
+                <small class="text-muted">{{ user.experience }}</small>
+            </div>
+            <p class="article-title" href="#">{{ user.profile_overview }}</p>
+            <!-- Add more post details as needed -->
+        </div>
+    </article>
+  </div>    
+</div>
+
+{% endblock content %}

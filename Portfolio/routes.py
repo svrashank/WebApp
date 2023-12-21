@@ -1,6 +1,6 @@
 from Portfolio import app,db,bcrypt 
 import flask 
-from Portfolio.forms import LoginForm,RegistrationForm ,EditProfile,ProjectForm,create_skill_form,QualificationsForm
+from Portfolio.forms import LoginForm,RegistrationForm ,EditProfile,ProjectForm,create_skill_form,QualificationsForm,searchForm
 from flask import render_template, url_for,flash,redirect,request,session,get_flashed_messages
 from Portfolio.models import User,Project,Skills,Qualifications
 from flask_login import login_user,current_user,logout_user,login_required
@@ -89,11 +89,28 @@ def show_sign_up():
     return render_template("sign_up.html", title="Sign Up", form=RegistrationForm())
 
  
-@app.route("/home")
+@app.route("/home",methods=['GET','POST'])
 def home():
+    form = searchForm()
     page = request.args.get('page',1,type=int)
     users = User.query.paginate(per_page=3,page=page)
-    return render_template("home.html",users=users)
+    if form.validate_on_submit():
+        user = User.query.filter_by(username = form.input.data)
+        if user:
+            return redirect(url_for('home_search',username=form.input.data))
+        else:
+            return redirect(url_for('user_not_found'))
+    return render_template("home.html",users=users,form=form )
+
+@app.route("/home/<username>",methods=['GET','POST'])
+def home_search(username):
+    form = searchForm()
+    user = User.query.filter_by(username=username).first()
+    return render_template("home_search.html",user=user,form=form)
+
+@app.route("/home/user_not_found")
+def user_not_found():
+    return render_template('user_not_found.html')
 
 @app.route("/user/<username>")
 def user_profile(username):
