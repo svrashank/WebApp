@@ -1,4 +1,4 @@
-{% extends 'layouts.html' %}
+{% extends 'layouts_profile.html' %}
 {% block content %}
 <div class="jumbotron">
   <h1 class="display-4">Profiles</h1>
@@ -7,7 +7,7 @@
   <div class="post-section">
     <article class="media content-section mt-3">
 
-        <img src="{{ url_for('static',filename='profile_pics/' + user.image_file) }}" alt="Profile Picture Post" class="mr-3 img-fluid rounded-circle home-profile-image" width="50">
+        <img src="{{ url_for('static',filename='profile_pics/' + (user.image_file or 'default.png')) }}" alt="Profile Picture Post" class="mr-3 img-fluid rounded-circle home-profile-image" width="50">
         <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2" href="{{ url_for('user_profile',username=user.username)}}">{{ user.username }}</a>
@@ -21,3 +21,9 @@
 </div>
 
 {% endblock content %}
+
+
+
+
+John Doe
+John Doe 

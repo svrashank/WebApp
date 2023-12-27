@@ -49,7 +49,7 @@ def sign_up():
     if form.validate_on_submit():
         #Hash Password and store all information in the database 
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
-        user = User(username = form.username.data,email = form.email.data,password = hashed_password)
+        user = User(username = form.username.data.strip(),email = form.email.data.strip(),password = hashed_password)
         # app.app_context().push()
         db.session.add(user)
         db.session.commit()
@@ -88,25 +88,24 @@ def save_resume(form_resume_file):
 def show_sign_up():
     return render_template("sign_up.html", title="Sign Up", form=RegistrationForm())
 
- 
+from werkzeug.exceptions import HTTPException
 @app.route("/home",methods=['GET','POST'])
 def home():
     form = searchForm()
     page = request.args.get('page',1,type=int)
     users = User.query.paginate(per_page=3,page=page)
     if form.validate_on_submit():
-        user = User.query.filter_by(username = form.input.data)
+        user = User.query.filter_by(username = form.input.data.strip()).first()
         if user:
-            return redirect(url_for('home_search',username=form.input.data))
+            return redirect(url_for('home_search',username=form.input.data.strip()))
         else:
             return redirect(url_for('user_not_found'))
     return render_template("home.html",users=users,form=form )
 
 @app.route("/home/<username>",methods=['GET','POST'])
 def home_search(username):
-    form = searchForm()
     user = User.query.filter_by(username=username).first()
-    return render_template("home_search.html",user=user,form=form)
+    return render_template("home_search.html",user=user)
 
 @app.route("/home/user_not_found")
 def user_not_found():
