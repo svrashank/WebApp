@@ -66,6 +66,8 @@ def editprofile():
         if form.profile_overview.data :
             if form.profile_overview.data != current_user.profile_overview:
                 current_user.profile_overview =form.profile_overview.data
+        if form.experience.data :
+            current_user.experience = form.experience.data 
         current_user.email = form.email.data 
         current_user.username = form.username.data 
         db.session.commit()
@@ -84,3 +86,7 @@ def editprofile():
 def sign_out():
     logout_user()
     return redirect(url_for('main.home'))
+
+@main.route("/learn")
+def learnJavascript():
+    return render_template("yourprofile.html")
