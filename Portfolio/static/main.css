@@ -1,6 +1,8 @@
 body {
     background: #6e869399;
-    /* background-image : url('background_image.avif'); */
+    background-image : url('background.png');
+    background-size: cover;  /* This ensures the background image covers the entire container */
+    background-repeat: no-repeat;  /* Prevents the background image from repeating */
     color: #333333;
     /* margin-top: 5rem; */
   }
@@ -101,9 +103,9 @@ body {
     margin-right: 20px;
     
   }
-  .profile-block{
-    background-color: hsl(0, 6%, 93%);
-  }
+  /* .profile-block{
+    background-color: hsl(0, 6%, 93%,0.9);
+  } */
   .profile-header{
     background-color:hsl(194, 27%, 37%,0.7);
   }
@@ -150,4 +152,17 @@ body {
   width: 120px;
   margin-right: 20px;
 }
+.jumbotron {
+  background-color: rgba(255, 255, 255, 0.5); /* Adjust the alpha (fourth) value for transparency */
+}
+
 /* <a href="https://www.freepik.com/free-vector/abstract-gray-papercut-style-layers-background-design_8290123.htm#query=layered%20background&position=29&from_view=keyword&track=ais&uuid=3d58ab8c-26b1-4c99-98f1-672ceed13730">Image by starline</a> on Freepik */
+.card-body {
+    max-width: 100%; /* Adjust as needed */
+    margin: 0 auto; /* Center the content */
+}
+
+.container {
+    max-width: 1200px; /* Adjust as needed */
+    margin: 0 auto; /* Center the content */
+}

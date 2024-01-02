@@ -13,7 +13,7 @@
 <body>
   <form class="form-signin" method = 'POST' action = "{{url_for('sign_in')}}">
     {{ form.hidden_tag() }}
-    <img class="mb-4" src="C:\Projects\WebApp\images" alt="" width="72" height="72">
+    <img class="mb-4" src="{{url_for('static',filename='sign_in.png')}}" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
     <div class="form-group">
@@ -54,7 +54,7 @@
     </div>
 
     <div style = "text-align: center;">
-      <button class="btn btn-forgot pb-2" type="submit">Fogot Password?</button>
+      <!-- <button class="btn btn-forgot pb-2" type="submit">Fogot Password?</button> -->
       <div class="border-top pt-2 ">
         <small class="text-muted">
             Need An Account? <a class="ml-2" href="{{ url_for('sign_up') }}">Sign Up Now</a>

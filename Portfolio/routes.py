@@ -70,10 +70,6 @@ def save_picture(form_picture):
     picture_filename = random_hex + file_ext
     picture_path = os.path.join(app.root_path,"static/profile_pics",picture_filename)
     form_picture.save(picture_path)
-    # output_size = (125,125)
-    # i = Image.open(form_picture)
-    # i.thumbnail(output_size)
-    # i.save(picture_path)
     return picture_filename
 
 def save_resume(form_resume_file):
@@ -88,7 +84,6 @@ def save_resume(form_resume_file):
 def show_sign_up():
     return render_template("sign_up.html", title="Sign Up", form=RegistrationForm())
 
-from werkzeug.exceptions import HTTPException
 @app.route("/home",methods=['GET','POST'])
 def home():
     form = searchForm()
@@ -146,6 +141,10 @@ def editprofile():
         if form.profile_overview.data :
             if form.profile_overview.data != current_user.profile_overview:
                 current_user.profile_overview =form.profile_overview.data
+        if form.experience.data :
+            if form.experience.data != current_user.experience:
+                current_user.experience = form.experience.data
+
         current_user.email = form.email.data 
         current_user.username = form.username.data 
         db.session.commit()
