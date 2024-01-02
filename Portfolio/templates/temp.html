@@ -25,7 +25,7 @@
       <input type="password" id="inputPassword" class="form-control" placeholder="Confirm Password" required>
      
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit" formaction="{{url_for('home')}}">Sign Up</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" formaction="{{url_for('main.home')}}">Sign Up</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2023-2024</p>
     </form>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -57,11 +57,11 @@
           <input type="checkbox" value="remember-me"> Remember me
         </label>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit" formaction="{{url_for('home')}}">Sign in</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" formaction="{{url_for('main.home')}}">Sign in</button>
       <div style = "text-align: center;">
         <button class="btn btn-forgot" type="submit">Fogot Password?</button>
         <hr>
-        <button class="btn btn-signup" formnovalidate type="submit" formaction="{{url_for('sign_up')}}">Sign up</button>
+        <button class="btn btn-signup" formnovalidate type="submit" formaction="{{url_for('users_blueprint.sign_up')}}">Sign up</button>
   
       </div>
   

@@ -1,22 +1,19 @@
 from flask import Blueprint
-from Portfolio import app,db,bcrypt 
+from Portfolio import db,bcrypt 
 import flask 
-from Portfolio.forms import LoginForm,RegistrationForm ,EditProfile,ProjectForm,create_skill_form,QualificationsForm,searchForm
-from flask import render_template, url_for,flash,redirect,request,session,get_flashed_messages
+from Portfolio.users.forms import LoginForm,RegistrationForm 
+from flask import render_template, url_for,flash,redirect,request
 from Portfolio.models import User,Project,Skills,Qualifications
-from flask_login import login_user,current_user,logout_user,login_required
-import secrets
-import os 
-from PIL import Image
-from utils import is_safe_url
+from flask_login import login_user,current_user,login_required
+from Portfolio.users.utils import is_safe_url
 
-users = Blueprint('users',__name__)
+users_blueprint = Blueprint('users_blueprint',__name__)
 
-@app.route("/",methods=['GET','POST'])
+@users_blueprint.route("/",methods=['GET','POST'])
 def sign_in():
     if current_user.is_authenticated:
         flash(f"logged in as {current_user.username}")
-        return redirect(url_for("home"))
+        return redirect(url_for("main.home"))
     form  = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -26,7 +23,7 @@ def sign_in():
             next = request.args.get('next')
             if next and not is_safe_url(next):
                 return flask.abort(400)
-            return redirect(next or url_for('home')) 
+            return redirect(next or url_for('main.home')) 
         else:
             flash("Wrong email or password,please try again",'error')
     return render_template("signin.html",title = "Login",form = form)
@@ -34,21 +31,21 @@ def sign_in():
 
 
 
-@app.route("/signup",methods=['GET','POST'])
+@users_blueprint.route("/signup",methods=['GET','POST'])
 def sign_up():  
     if current_user.is_authenticated:
         flash(f"logged in as{current_user.username}")
-        return redirect(url_for("home"))
+        return redirect(url_for("main.home"))
     form = RegistrationForm()
     if form.validate_on_submit():
         #Hash Password and store all information in the database 
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
         user = User(username = form.username.data.strip(),email = form.email.data.strip(),password = hashed_password)
-        # app.app_context().push()
+        # users_blueprint.app_context().push()
         db.session.add(user)
         db.session.commit()
         flash(f"Account created for {form.username.data}",'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('main.home'))
     if request.method == "POST":
         # for field,error in form.errors.items():
         #     flash(error [0], f'danger_{field}')
@@ -58,7 +55,7 @@ def sign_up():
 
     return render_template("sign_up.html",title ="Sign Up",form = form)
 
-@app.route('/show_signup')
+@users_blueprint.route('/show_signup')
 def show_sign_up():
     return render_template("sign_up.html", title="Sign Up", form=RegistrationForm())
 
@@ -90,9 +87,9 @@ def delete_user(user_id):
         print(f"User {user_id} not found")
         return False
     
-@app.route("/editprofile/delete",methods = ["GET","POST"])
+@users_blueprint.route("/editprofile/delete",methods = ["GET","POST"])
 @login_required
 def delete_account():
     user_id = current_user.id
     delete_user(user_id)
-    return redirect(url_for('sign_up'))
+    return redirect(url_for('users_blueprint.sign_up'))

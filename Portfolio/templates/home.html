@@ -11,7 +11,7 @@
           <img src="{{ url_for('static',filename='profile_pics/' + user.image_file) }}" alt="Profile Picture Post" class="mr-3 img-fluid rounded-circle home-profile-image" width="50">
           <div class="media-body">
               <div class="article-metadata">
-                  <a class="mr-2" href="{{ url_for('user_profile',username=user.username)}}">{{ user.username }}</a>
+                  <a class="mr-2" href="{{ url_for('main.user_profile',username=user.username)}}">{{ user.username }}</a>
                   <small class="text-muted">{{ user.experience }}</small>
               </div>
               <p class="article-title" href="#">{{ user.profile_overview }}</p>
@@ -22,9 +22,9 @@
       {% for page_num in users.iter_pages(left_edge = 1 ,right_edge = 1,left_current = 1 ,right_current = 2) %}
         {% if page_num %}
           {% if users.page == page_num %}
-            <a class='btn btn-info mb-4' href="{{ url_for('home',page=page_num) }}">{{ page_num }}</a>
+            <a class='btn btn-info mb-4' href="{{ url_for('main.home',page=page_num) }}">{{ page_num }}</a>
           {% else %}
-            <a class='btn btn-outline-info mb-4' href="{{ url_for('home',page=page_num) }}">{{ page_num }}</a>
+            <a class='btn btn-outline-info mb-4' href="{{ url_for('main.home',page=page_num) }}">{{ page_num }}</a>
           {% endif %}
           
         {% else %}

@@ -6,7 +6,6 @@ from flask import request
 from urllib.parse import urlparse, urljoin
 import secrets
 import os 
-from PIL import Image
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)

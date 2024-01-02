@@ -16,7 +16,7 @@
                 <tr>
                     <th scope="row">{{ loop.index }}</th>
                     <td>
-                        <a class = 'qualification-title' href="{{ url_for('curr_qualification',qualification_id=qualification.id)}}">
+                        <a class = 'qualification-title' href="{{ url_for('qualifications_blueprint.curr_qualification',qualification_id=qualification.id)}}">
                             {{ qualification.course }}
                         </a>
                     </td>
@@ -24,7 +24,7 @@
             </tbody>
         {% endfor %}
     </table>
-    <a href='{{ url_for("add_qualification") }}'> 
+    <a href='{{ url_for("qualifications_blueprint.add_qualification") }}'> 
         <button class="btn btn-info mb-2"> 
             Add Qualifications 
         </button> 

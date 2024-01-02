@@ -1,17 +1,15 @@
-from Portfolio import app,db,bcrypt 
+from Portfolio import db 
 import flask 
-from Portfolio.forms import LoginForm,RegistrationForm ,EditProfile,ProjectForm,create_skill_form,QualificationsForm,searchForm
-from flask import render_template, url_for,flash,redirect,request,session,get_flashed_messages
-from Portfolio.models import User,Project,Skills,Qualifications
-from flask_login import login_user,current_user,logout_user,login_required
-import secrets
-import os 
-from PIL import Image
-from urllib.parse import urlparse, urljoin
+from Portfolio.skills.forms import create_skill_form
+from flask import render_template, url_for,flash,redirect,request
+from Portfolio.models import Skills
+from flask_login import current_user
+from flask import Blueprint 
+
+skills_blueprint = Blueprint('skills_blueprint',__name__)
 
 
-
-@app.route("/skills/add_skill",methods=['GET','POST'])
+@skills_blueprint.route("/skills/add_skill",methods=['GET','POST'])
 def add_skill():
     form = create_skill_form()
     skills =[request.form.get(f"skill_{i}") for i in range(1,8)]
@@ -37,7 +35,7 @@ def add_skill():
 
         db.session.commit()
         flash('Your skills have been updated', 'info')
-        return redirect(url_for('skills'))
+        return redirect(url_for('skills_blueprint.skills'))
 
     if request.method == 'GET':
         existing_skills = Skills.query.filter_by(user_id=current_user.id).all()
@@ -50,7 +48,7 @@ def add_skill():
 
     return render_template('add_skill.html',form = form)
 
-@app.route("/skills",methods=['GET','POST'])
+@skills_blueprint.route("/skills",methods=['GET','POST'])
 def skills():
     user_skills = Skills.query.filter_by(user_id=current_user.id).all() 
     return render_template('skills.html',user_skills=user_skills)

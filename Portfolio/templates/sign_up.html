@@ -16,7 +16,7 @@
 
   <body>
     
-    <form class="form-signin" method="POST" action = "{{ url_for('sign_up') }}" >
+    <form class="form-signin" method="POST" action = "{{ url_for('users_blueprint.sign_up') }}" >
       {{ form.hidden_tag() }}
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
 
@@ -78,7 +78,7 @@
       <div class="form-group" >  
         {{ form.submit(class="btn btn-lg btn-primary btn-block")}}
       </div>
-      <p class="have-account">Already have an account?  <a href="{{url_for('sign_in')}}">Login</a></p>
+      <p class="have-account">Already have an account?  <a href="{{url_for('users_blueprint.sign_in')}}">Login</a></p>
       <!-- <div id= "flash-messages">
         {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
