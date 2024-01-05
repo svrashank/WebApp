@@ -40,11 +40,11 @@ def user_profile(username):
     qualifications = Qualifications.query.filter_by(user_id = user.id)
     return render_template("user_profile.html",user=user,projects=projects,skills=skills,qualifications=qualifications)
 
-@main.route("/yourprofile",methods=['GET','POST'])
-@login_required
-def yourprofile():
-    image_file = url_for('static',filename='/profile_pics/'+current_user.image_file)
-    return render_template('yourprofile.html',title='Your Profile',image_file=image_file)
+# @main.route("/yourprofile",methods=['GET','POST'])
+# @login_required
+# def yourprofile():
+#     image_file = url_for('static',filename='/profile_pics/'+current_user.image_file)
+#     return render_template('yourprofile.html',title='Your Profile',image_file=image_file)
 
 
 
@@ -87,6 +87,11 @@ def sign_out():
     logout_user()
     return redirect(url_for('main.home'))
 
-@main.route("/learn")
-def learnJavascript():
-    return render_template("yourprofile.html")
+@main.route("/<username>")
+def learnJavascript(username):
+    # page = request.args.get('page',1,type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    projects = Project.query.filter_by(user_id = user.id)
+    skills = Skills.query.filter_by(user_id = user.id)
+    qualifications = Qualifications.query.filter_by(user_id = user.id)
+    return render_template("yourprofile.html",user=user,projects=projects,skills=skills,qualifications=qualifications)

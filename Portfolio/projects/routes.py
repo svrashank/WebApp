@@ -35,10 +35,10 @@ def update_project(project_id):
         flash(f"Your project {curr_project.project_title} has been updated",'success')
         return redirect(url_for('projects_blueprint.projects'))
     elif request.method == "GET":
-        form.project_title.data = curr_project.project_title
+        form.project_title.data = curr_project.project_title    
         form.project_overview.data = curr_project.project_overview
         form.project_url.data = curr_project.project_url
-    return render_template('projects.add_project.html',curr_project=curr_project,form=form)
+    return render_template('add_project.html',curr_project=curr_project,form=form)
 
 @projects_blueprint.route("/projects/<int:project_id>/delete",methods=['POST'])
 @login_required
