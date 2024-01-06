@@ -54,9 +54,7 @@
                                     </div>
                                 {% endfor %}
                             </div>
-                            {% if current_user.id == user.id %}
-                                <a class="btn btn-secondary" href="{{url_for('editprofile')}}" role="button">Edit Profile</a>
-                            {% endif %}
+                           
                         </div>
                     </div>
                 </div>
@@ -118,6 +116,7 @@
         </div>
     </div>
 
-<a class="btn btn-secondary" href="{{url_for('main.editprofile')}}" role="button">Edit Profile</a>
-
+{% if current_user.id == user.id %}
+    <a class="btn btn-secondary" href="{{url_for('main.editprofile')}}" role="button">Edit Profile</a>
+{% endif %}
 {% endblock content %}

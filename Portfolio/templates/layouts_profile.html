@@ -78,39 +78,6 @@
             </div>
         </main>
     </div>
-    <script>
-      // Wait for the DOM to be ready
-      document.addEventListener('DOMContentLoaded', function () {
-          // Find the flash messages container
-          var flashMessagesContainer = document.getElementById('flash-messages');
-  
-          // Hide flash messages after 5 seconds (5000 milliseconds)
-          if (flashMessagesContainer) {
-              setTimeout(function () {
-                  flashMessagesContainer.innerHTML = '';  // Clear the content
-              }, 5000);
-          }
-      });
-    </script>
-        <!-- Bootstrap core JavaScript
-    ================================================== -->
-        
-  <!-- <script>
- document.addEventListener('DOMContentLoaded', function () {
-    const tabs = document.querySelectorAll('.nav-link');
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function () {
-            tabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-});
-
-
-
-  </script>   -->
-        
   
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -121,35 +88,6 @@
 <!-- Bootstrap JS -->
 <script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
 
-</body>
-</html>
 
-            // Hide flash messages after 5 seconds (5000 milliseconds)
-            if (flashMessagesContainer) {
-                setTimeout(function () {
-                    flashMessagesContainer.innerHTML = '';  // Clear the content
-                }, 5000);
-            }
-        });
-
-        $(document).ready(function () {
-        // Initialize Bootstrap tabs
-        $('#myTabs a').on('click', function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-        });
-
-        // Show the first tab on page load
-        $('#myTabs a:first').tab('show');
-
-        // Fix for the issue where prior tab is displayed along with portfolio
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-            // Hide other tabs when a tab is shown
-            var target = $(e.target).attr('href');
-            $('.tab-pane').not(target).removeClass('show active');
-        });
-    });
-
-    </script>
 </body>
 </html>
