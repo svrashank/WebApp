@@ -19,40 +19,45 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto ml-auto ">
-                <li class="nav-item active ">
-                    <a class="nav-link" href="{{url_for('home')}}">Home <span class="sr-only">(current)</span></a>
-                </li>
-                {% if current_user.is_authenticated %}
-                    <li class="nav-item active ml-md-1">
-                        <a class="nav-link" href="{{url_for('user_profile',username=current_user.username )}}">My Profile <span class="sr-only">(current)</span></a>
-                    </li>
-                    <div class="dropdown show">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Manage Profile
-                        </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto ml-auto ">
+          <li class="nav-item active ">
+            <a class="nav-link" href="{{url_for('main.home')}}">Home <span class="sr-only">(current)</span></a>
+          </li>
+          {% if current_user.is_authenticated %}
+          
+            <li class="nav-item active ml-md-1">
+              <a class="nav-link" href="{{url_for('main.user_profile',username=current_user.username )}}">My Profile <span class="sr-only">(current)</span></a>
+            </li>
+              <div class="dropdown show">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Manage Profile
+                </a>
+                
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="{{url_for('projects_blueprint.projects')}}">Projects</a>
+                  <a class="dropdown-item" href="{{url_for('skills_blueprint.skills')}}">Skills</a>
+                  <a class="dropdown-item" href="{{url_for('main.editprofile')}}">Edit Profile</a>
+                  <a class="dropdown-item" href="{{url_for('qualifications_blueprint.qualifications')}}">Qualifications</a>
+                  <!-- <a class="dropdown-item" href="{{url_for('main.learnJavascript',username = current_user.username)}}">JavaScript</a> -->
 
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="{{url_for('projects')}}">Projects</a>
-                            <a class="dropdown-item" href="{{url_for('skills')}}">Skills</a>
-                            <a class="dropdown-item" href="{{url_for('qualifications')}}">Qualifications</a>
-                            <a class="dropdown-item" href="{{url_for('editprofile')}}">Edit Profile</a>
-                        </div>
-                    </div>
-                {% endif %}
-            </ul>
-            <div class="navbar-nav col-lg-3">
-                {% if current_user.is_authenticated %}
-                    <a class="nav-item nav-link " href="{{url_for('sign_out')}}">Sign out</a>
-                {% else %}
-                    <a class="nav-item nav-link mr-md-2" href="{{url_for('sign_in')}}">Sign in</a>
-                {% endif %}
-            </div>
-        </div>
+                </div>
+              </div>
+          
+          {% endif %}
+         
+        </ul>     
+        <div class="navbar-nav col-lg-3">
+          {% if current_user.is_authenticated %}
+            <a class="nav-item nav-link " href="{{url_for('main.sign_out')}}">Sign out</a>
+          {% else %}
+            <a class="nav-item nav-link mr-md-2" href="{{url_for('users_blueprint.sign_in')}}">Sign in</a>
+          {% endif %}
+        </div> 
+      </div>
     </nav>
     <div class="container">
         <main role="main" class="container">
@@ -74,17 +79,51 @@
             </div>
         </main>
     </div>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
-
     <script>
-        // Wait for the DOM to be ready
-        document.addEventListener('DOMContentLoaded', function () {
-            // Find the flash messages container
-            var flashMessagesContainer = document.getElementById('flash-messages');
+      // Wait for the DOM to be ready
+      document.addEventListener('DOMContentLoaded', function () {
+          // Find the flash messages container
+          var flashMessagesContainer = document.getElementById('flash-messages');
+  
+          // Hide flash messages after 5 seconds (5000 milliseconds)
+          if (flashMessagesContainer) {
+              setTimeout(function () {
+                  flashMessagesContainer.innerHTML = '';  // Clear the content
+              }, 5000);
+          }
+      });
+    </script>
+        <!-- Bootstrap core JavaScript
+    ================================================== -->
+        
+  <!-- <script>
+ document.addEventListener('DOMContentLoaded', function () {
+    const tabs = document.querySelectorAll('.nav-link');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function () {
+            tabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+});
+
+
+
+  </script>   -->
+        
+  
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<!-- Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
 
             // Hide flash messages after 5 seconds (5000 milliseconds)
             if (flashMessagesContainer) {

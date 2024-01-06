@@ -1,36 +1,57 @@
 {% extends 'layouts_profile.html' %}
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-4">Skills</h1>
-    <p class="lead">Add up to seven skills most relevant to you</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body-Skill-title ">
+            <h1 class="display-4 text-white">Skills</h1>
+            <p class="lead">Add up to seven skills most relevant to you</p>        
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
     <hr class="my-4">
     <!-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p> -->
-    <table class="table table-striped">
-        <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Skill </th>
-              <th scope="col">Value</th>
-              <!-- <th scope="col">Handle</th> -->
-            </tr>
-          </thead>
-        {% for skill in user_skills %}
-         
-            <tbody>
-            <tr>
-                <th scope="row">{{ loop.index }}</th>
-                <td>{{ skill.skill_name }}</td>
-                <td>{{ skill.skill_value }}</td>
-            </tr>
-            </tbody>
-
-        {% endfor %}
-      </table>
-    <a href='{{ url_for("add_skill") }}'> 
-        <button class="btn btn-primary mb-2"> 
-            Update Skills 
-        </button> 
-    </a> 
-  </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body-skill-body mb-1 ml-2  mr-2">
+              <table class="table table-striped">
+                <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Skill </th>
+                      <th scope="col">Value</th>
+                      <!-- <th scope="col">Handle</th> -->
+                    </tr>
+                  </thead>
+                {% for skill in user_skills %}
+                 
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{ loop.index }}</th>
+                        <td>{{ skill.skill_name }}</td>
+                        <td>{{ skill.skill_value }}</td>
+                    </tr>
+                    </tbody>
+        
+                {% endfor %}
+              </table>
+            <a href='{{ url_for("skills_blueprint.add_skill") }}'> 
+                <button class="btn btn-primary mb-2"> 
+                    Update Skills 
+                </button> 
+            </a> 
+          </div>
+             
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
 
 {% endblock content %}

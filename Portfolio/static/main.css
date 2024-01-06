@@ -153,16 +153,30 @@ body {
   margin-right: 20px;
 }
 .jumbotron {
-  background-color: rgba(255, 255, 255, 0.5); /* Adjust the alpha (fourth) value for transparency */
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 /* <a href="https://www.freepik.com/free-vector/abstract-gray-papercut-style-layers-background-design_8290123.htm#query=layered%20background&position=29&from_view=keyword&track=ais&uuid=3d58ab8c-26b1-4c99-98f1-672ceed13730">Image by starline</a> on Freepik */
 .card-body {
     max-width: 100%; /* Adjust as needed */
     margin: 0 auto; /* Center the content */
+
+    
 }
+
 
 .container {
     max-width: 1200px; /* Adjust as needed */
     margin: 0 auto; /* Center the content */
+}
+
+.card-body-qualification{
+  max-width: 100%; /* Adjust as needed */
+  margin: 0 ; /* Center the content */
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.card-body-Skill-title{
+  background-color: #5f788a;
+  color:#dddddd;
+  padding-left: 1cap;
 }

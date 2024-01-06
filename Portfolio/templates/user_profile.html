@@ -3,10 +3,10 @@
 <div class="jumbotron">
     <div class="content-section" style ="background-color: rgb(98, 135, 138);">
       <div class="media">
-          <img src="{{ url_for('static',filename='profile_pics/' + user.image_file) }}" class="profile-img">
+        <img src="{{ url_for('static',filename='profile_pics/' + user.image_file) }}" class="profile-img">
           <div class="media-body">
-              <h2 class="display-4 text-white">{{ user.username }}</h2>
-              <p class="text-white">{{ user.email }}</p>
+            <h2 class="display-4 text-white">{{ user.username }}</h2>
+            <p class="text-white">{{ user.email }}</p>
           </div>
       </div>
   </div>
@@ -17,16 +17,18 @@
             <a class="nav-link active text-white" id="portfolio-tab" data-toggle="tab" href="#portfolio">Portfolio</a>
         </li>
         <li class="nav-item ">
-            <a class="nav-link text-white" id="qualification-tab" data-toggle="tab" href="#qualification">Qualification and Work Experience</a>
+            <a class="nav-link text-white" id="qualification-tab" data-toggle="tab" href="#qualification">Qualification and Experience</a>
         </li>
         <!-- <li class="nav-item">
             <a class="nav-link text-white" id="work-experience-tab" data-toggle="tab" href="#work-experience">Work Experience</a>
         </li> -->
     </ul>
 </div>
+
 <div class="profile-block">
     <div class="tab-content">
-        <div class="tab-pane fade show active" id="portfolio">
+        <div class="tab-pane active" id="portfolio">
+            <!-- Content for the 'Portfolio' tab -->
             <div class="card mb-1 mt-1">
                 <div class="card-body">
                     <div class="container">
@@ -59,75 +61,63 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="tab-pane fade" id="qualification">
+
+        <div class="card mb-1 mt-1">
+            <div class="card-body-qualification">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5 class="mb-2 mt-2"> Qualification </h5>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Course Title</th>
+                                        </tr>
+                                    </thead>
+                                    {% for qualification in qualifications %}
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">{{ loop.index }}</th>
+                                                <td>
+                                                    <a class='qualification-title' href="{{ url_for('qualifications_blueprint.curr_qualification',qualification_id=qualification.id)}}">
+                                                        {{ qualification.course }}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    {% endfor %}
+                                </table>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="mb-2 mt-2">Experience</h5>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Job Title</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>
+                                            <a class='experience-title'>
+                                                {{ user.experience }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="tab-pane fade " id="qualification">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Course Title</th>
-                    </tr>
-                </thead>
-                {% for qualification in qualifications %}
-                    <tbody>
-                        <tr>
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>
-                                <a class = 'qualification-title' href="{{ url_for('curr_qualification',qualification_id=qualification.id)}}">
-                                    {{ qualification.course }}
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                {% endfor %}
-
-            </table>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Job Title</th>
-                    </tr>
-                </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>
-                                <a class = 'experience-title'>
-                                    {{ user.experience }}
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                {% if current_user.id == user.id %}
-                    <a class="btn btn-secondary" href="{{url_for('editprofile')}}" role="button">Edit Profile</a>
-                {% endif %}
-        </div>
-        
-        <!-- <div class="tab-pane fade" id="work-experience">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Job Title</th>
-                    </tr>
-                </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>
-                                <a class = 'experience-title'>
-                                    {{ user.experience }}
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
-        </div>
     </div>
-</div>
+
+<a class="btn btn-secondary" href="{{url_for('main.editprofile')}}" role="button">Edit Profile</a>
 
 {% endblock content %}

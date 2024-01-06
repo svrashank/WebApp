@@ -1,7 +1,7 @@
 {% extends 'layouts_profile.html' %}
 {% block content %}
 <div class="jumbotron">
-  <div class="content-section" style ="background-color: rgb(113, 186, 192);">
+  <div class="content-section" style ="background-color: #5f788a;">
     <div class="media">
         <img src="{{ image_file }}" class="rounded-circle account-img">
         <div class="media-body">
@@ -101,12 +101,12 @@
     </div>
     <div class = 'form-group'>
       {{ form.qualification.label(class='form-control-label') }}
-      <a type="button" class="form-control btn btn-info" href="{{url_for('qualifications')}}">Update your qualifications here</a>    
+      <a type="button" class="form-control btn btn-info" href="{{url_for('qualifications_blueprint.qualifications')}}">Update your qualifications here</a>    
       
     </div>
     <div class="form-group">
       {{ form.projects.label(class='form-control-label') }}
-      <a type="button" class="form-control btn btn-info" href="{{url_for('projects')}}">Update your projects here</a>    
+      <a type="button" class="form-control btn btn-info" href="{{url_for('projects_blueprint.projects')}}">Update your projects here</a>    
     </div>
     <div class="form-group " >  
       {{ form.update(class="btn btn-secondary mt-2") }}
@@ -128,7 +128,7 @@
           </div>
           <div class="modal-footer">  
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <form action="{{ url_for('delete_account') }}" method="POST">
+            <form action="{{ url_for('users_blueprint.delete_account') }}" method="POST">
               <input type="submit" class="btn btn-danger" value="Delete">
           </form>
           

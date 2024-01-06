@@ -28,34 +28,28 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto ml-auto ">
           <li class="nav-item active ">
-            <a class="nav-link" href="{{url_for('home')}}">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{url_for('main.home')}}">Home <span class="sr-only">(current)</span></a>
           </li>
           {% if current_user.is_authenticated %}
           
             <li class="nav-item active ml-md-1">
-              <a class="nav-link" href="{{url_for('user_profile',username=current_user.username )}}">My Profile <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{{url_for('main.user_profile',username=current_user.username )}}">My Profile <span class="sr-only">(current)</span></a>
             </li>
               <div class="dropdown show">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Manage Profile
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="{{url_for('projects')}}">Projects</a>
-                  <a class="dropdown-item" href="{{url_for('skills')}}">Skills</a>
-                  <a class="dropdown-item" href="{{url_for('qualifications')}}">Qualifications</a>
-                  <a class="dropdown-item" href="{{url_for('editprofile')}}">Edit Profile</a>
+                  <a class="dropdown-item" href="{{url_for('projects_blueprint.projects')}}">Projects</a>
+                  <a class="dropdown-item" href="{{url_for('skills_blueprint.skills')}}">Skills</a>
+                  <a class="dropdown-item" href="{{url_for('main.editprofile')}}">Edit Profile</a>
+                  <a class="dropdown-item" href="{{url_for('qualifications_blueprint.qualifications')}}">Qualifications</a>
+
                 </div>
               </div>
-            <!-- <li class="nav-item active ">
-              <a class="nav-link" href="{{url_for('projects')}}">Manage Projects <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active ">
-              <a class="nav-link" href="{{url_for('skills')}}">Skills <span class="sr-only">(current)</span></a>
-            </li> -->
+           
           {% endif %}
-          <!-- <li class="nav-item">
-            <a class="nav-link active" href="{{url_for('sign_out')}}">Sign out</a>
-          </li> -->
+        
         </ul>     
         <form method = "POST" class="form-inline mt-1 mt-md-1 col-lg-3">
           {{ form.hidden_tag() }}
@@ -64,9 +58,9 @@
         </form>
         <div class="navbar-nav col-lg-3">
           {% if current_user.is_authenticated %}
-            <a class="nav-item nav-link " href="{{url_for('sign_out')}}">Sign out</a>
+            <a class="nav-item nav-link " href="{{url_for('main.sign_out')}}">Sign out</a>
           {% else %}
-            <a class="nav-item nav-link mr-md-2" href="{{url_for('sign_in')}}">Sign in</a>
+            <a class="nav-item nav-link mr-md-2" href="{{url_for('users_blueprint.sign_in')}}">Sign in</a>
           {% endif %}
         </div> 
       </div>
@@ -124,28 +118,16 @@
     
         
   
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
+ <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
-    <script>
-      $(document).ready(function () {
-          // Initialize Bootstrap tabs
-          $('#myTabs a').on('click', function (e) {
-              e.preventDefault();
-              $(this).tab('show');
-          });
-  
-          // Show the first tab on page load
-          $('#myTabs a:first').tab('show');
-      });
-    </script>
-  </body>
+<!-- Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
+
+</body>
 </html>
 
 

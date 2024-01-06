@@ -9,14 +9,14 @@
     <div class="media-body">
       <div class="article-metadata">
         <div class="article-metadata article-metadata-head">
-          <a  class="project-title-link" href="{{ url_for('curr_project',project_id = project.id) }}">{{ project.project_title }}</a>
+          <a  class="project-title-link" href="{{ url_for('projects_blueprint.curr_project',project_id = project.id) }}">{{ project.project_title }}</a>
         </div>
         <hr>
         <p class="text-muted">{{ project.project_overview }}</p>
 
   </article>
   {% endfor %}
-  <a href='{{ url_for("add_project") }}'> 
+  <a href='{{ url_for("projects_blueprint.add_project") }}'> 
       <button class="btn btn-info mb-2"> 
           Add new Project 
       </button> 

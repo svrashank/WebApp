@@ -1,7 +1,7 @@
 {% extends 'layouts_profile.html' %}
 {% block content %}
 <div class="jumbotron">
-<form method="POST" action="{{ url_for('add_qualification') }}">
+<form method="POST" action="{{ url_for('qualifications_blueprint.add_qualification') }}">
   <div class = 'form-group'>
     {{ form.hidden_tag() }}
     {{ form.course.label(class='form-control-label') }}
