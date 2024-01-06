@@ -87,11 +87,3 @@ def sign_out():
     logout_user()
     return redirect(url_for('main.home'))
 
-@main.route("/<username>")
-def learnJavascript(username):
-    # page = request.args.get('page',1,type=int)
-    user = User.query.filter_by(username=username).first_or_404()
-    projects = Project.query.filter_by(user_id = user.id)
-    skills = Skills.query.filter_by(user_id = user.id)
-    qualifications = Qualifications.query.filter_by(user_id = user.id)
-    return render_template("yourprofile.html",user=user,projects=projects,skills=skills,qualifications=qualifications)

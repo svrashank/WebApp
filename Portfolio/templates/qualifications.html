@@ -4,30 +4,41 @@
     <h1 class="display-4">Qualifications</h1>
     <p class="lead">Following are your qualifications </p>
     <hr class="my-4">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Course Title</th>
-            </tr>
-        </thead>
-        {% for qualification in user_qualifications %}
-            <tbody>
-                <tr>
-                    <th scope="row">{{ loop.index }}</th>
-                    <td>
-                        <a class = 'qualification-title' href="{{ url_for('qualifications_blueprint.curr_qualification',qualification_id=qualification.id)}}">
-                            {{ qualification.course }}
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        {% endfor %}
-    </table>
-    <a href='{{ url_for("qualifications_blueprint.add_qualification") }}'> 
-        <button class="btn btn-info mb-2"> 
-            Add Qualifications 
-        </button> 
-    </a> 
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class = 'card-body-qualification'>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Course Title</th>
+                                </tr>
+                            </thead>
+                            {% for qualification in user_qualifications %}
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">{{ loop.index }}</th>
+                                        <td>
+                                            <a class = 'qualification-title' href="{{ url_for('qualifications_blueprint.curr_qualification',qualification_id=qualification.id)}}">
+                                                {{ qualification.course }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            {% endfor %}
+                        </table>
+                        <a href='{{ url_for("qualifications_blueprint.add_qualification") }}'> 
+                            <button class="btn btn-info mb-2 ml-2"> 
+                                Add Qualifications 
+                            </button> 
+                        </a> 
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
