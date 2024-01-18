@@ -41,9 +41,9 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   <a class="dropdown-item" href="{{url_for('projects_blueprint.projects')}}">Projects</a>
+                  <a class="dropdown-item" href="{{url_for('qualifications_blueprint.qualifications')}}">Qualifications</a>
                   <a class="dropdown-item" href="{{url_for('skills_blueprint.skills')}}">Skills</a>
                   <a class="dropdown-item" href="{{url_for('main.editprofile')}}">Edit Profile</a>
-                  <a class="dropdown-item" href="{{url_for('qualifications_blueprint.qualifications')}}">Qualifications</a>
 
                 </div>
               </div>
@@ -61,6 +61,7 @@
             <a class="nav-item nav-link " href="{{url_for('main.sign_out')}}">Sign out</a>
           {% else %}
             <a class="nav-item nav-link mr-md-2" href="{{url_for('users_blueprint.sign_in')}}">Sign in</a>
+            <a class="nav-item nav-link mr-md-2" href="{{url_for('users_blueprint.sign_up')}}">Sign up</a>
           {% endif %}
         </div> 
       </div>

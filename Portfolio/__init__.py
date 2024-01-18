@@ -12,7 +12,7 @@ db = SQLAlchemy(app)
 
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
-login_manager.login_view = 'users.sign_in'
+login_manager.login_view = 'users_blueprint.sign_in'
 login_manager.login_message_category ='info'
 
 from Portfolio.users.routes import users_blueprint 
@@ -20,9 +20,11 @@ from Portfolio.projects.routes import projects_blueprint
 from Portfolio.qualifications.routes import qualifications_blueprint
 from Portfolio.skills.routes import skills_blueprint
 from Portfolio.main.routes import main
+from Portfolio.errors.handlers import errors
 
 app.register_blueprint(users_blueprint)
 app.register_blueprint(projects_blueprint)
 app.register_blueprint(qualifications_blueprint)
 app.register_blueprint(skills_blueprint)
 app.register_blueprint(main)
+app.register_blueprint(errors)

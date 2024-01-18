@@ -87,9 +87,9 @@ def delete_user(user_id):
         print(f"User {user_id} not found")
         return False
     
-@users_blueprint.route("/editprofile/delete",methods = ["GET","POST"])
+@users_blueprint.route("/editprofile/<int:user_id>/delete",methods = ["GET","POST"])
 @login_required
-def delete_account():
-    user_id = current_user.id
+def delete_account(user_id):
+    # user_id = current_user.id
     delete_user(user_id)
     return redirect(url_for('users_blueprint.sign_up'))

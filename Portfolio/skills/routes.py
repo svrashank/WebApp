@@ -3,13 +3,14 @@ import flask
 from Portfolio.skills.forms import create_skill_form
 from flask import render_template, url_for,flash,redirect,request
 from Portfolio.models import Skills
-from flask_login import current_user
+from flask_login import current_user,login_required
 from flask import Blueprint 
 
 skills_blueprint = Blueprint('skills_blueprint',__name__)
 
 
 @skills_blueprint.route("/skills/add_skill",methods=['GET','POST'])
+@login_required
 def add_skill():
     form = create_skill_form()
     skills =[request.form.get(f"skill_{i}") for i in range(1,8)]
@@ -49,6 +50,7 @@ def add_skill():
     return render_template('add_skill.html',form = form)
 
 @skills_blueprint.route("/skills",methods=['GET','POST'])
+@login_required
 def skills():
     user_skills = Skills.query.filter_by(user_id=current_user.id).all() 
     return render_template('skills.html',user_skills=user_skills)

@@ -38,7 +38,7 @@ def user_profile(username):
     projects = Project.query.filter_by(user_id = user.id)
     skills = Skills.query.filter_by(user_id = user.id)
     qualifications = Qualifications.query.filter_by(user_id = user.id)
-    return render_template("user_profile.html",user=user,projects=projects,skills=skills,qualifications=qualifications)
+    return render_template("user_profile.html",user=user)
 
 # @main.route("/yourprofile",methods=['GET','POST'])
 # @login_required

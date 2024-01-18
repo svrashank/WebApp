@@ -31,7 +31,6 @@ def add_qualification():
 @qualifications_blueprint.route("/qualifications/<int:qualification_id>",methods=['GET','POST'])
 @login_required
 def curr_qualification(qualification_id):
-    # projects = Project.query.filter_by(user_id=current_user.id).all()
     curr_qualification = Qualifications.query.get_or_404(qualification_id)
     return render_template('curr_qualification.html',curr_qualification=curr_qualification)
 

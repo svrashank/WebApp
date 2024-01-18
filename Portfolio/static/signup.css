@@ -10,7 +10,11 @@ body {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #cbc6c6;
+  background-image : url('background.png');
+  background-size: cover;  
+  background-repeat: no-repeat; 
+
+  /* background-color: #cbc6c6; */
 }
 
 .form-signin {
@@ -66,4 +70,5 @@ body {
   color: aliceblue;
 }
 .form-signin .have-account {
-  text-align: center;}
+  text-align: center;
+  color: white;}

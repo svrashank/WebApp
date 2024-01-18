@@ -1,7 +1,7 @@
 {% extends 'layouts_profile.html' %}
 {% block content %}
   <div class="card " >
-    <h2 class="card-header mb-2 text-white" style="background-color: rgb(80, 80, 80)"> Add Skills</h2>
+    <h2 class="card-header text-white" style="background-color: rgb(80, 80, 80)"> Add Skills</h2>
     <div class="card-body" style="background-color: rgb(195, 195, 195,0.7);">
       <form method="POST" action="{{ url_for('skills_blueprint.add_skill') }}" class="form-row">
         {{ form.hidden_tag() }}

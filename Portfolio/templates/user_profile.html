@@ -35,24 +35,32 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <h5 class="mb-2"> Projects</h5>
-                                {% for project in user.project %}
-                                    <div class="mb-4">
-                                        <b class="text-dark">{{ loop.index }}: {{ project.project_title }}</b>
-                                        <p class="">{{ project.project_overview }}</p>
-                                    </div>
-                                {% endfor %}
+                                {% if user.project %}
+                                    {% for project in user.project %}
+                                        <div class="mb-4">
+                                            <b class="text-dark">{{ loop.index }}: {{ project.project_title }}</b>
+                                            <p class="">{{ project.project_overview }}</p>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>User is yet to add Projects .</p>
+                                {% endif %}
                             </div>
                             
                             <div class="col-md-4">
                                 <h5 class="mb-2">Skills</h5>
-                                {% for skill in user.skill %}
-                                    <div class="mb-3">
-                                        <p class="mb-1">{{ skill.skill_name }}</p>
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: {{ skill.skill_value }}%; background-color: rgb(98, 135, 138);" aria-valuenow="{{ skill.skill_value }}" aria-valuemin="0" aria-valuemax="100">{{ skill.skill_value }}</div>
+                                {% if user.skill %}
+                                    {% for skill in user.skill %}
+                                        <div class="mb-3">
+                                            <p class="mb-1">{{ skill.skill_name }}</p>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: {{ skill.skill_value }}%; background-color: rgb(98, 135, 138);" aria-valuenow="{{ skill.skill_value }}" aria-valuemin="0" aria-valuemax="100">{{ skill.skill_value }}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                {% endfor %}
+                                    {% endfor %}
+                                {% else %}
+                                    <p>No skills added</p>
+                                {% endif %}
                             </div>
                            
                         </div>
@@ -68,6 +76,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <h5 class="mb-2 mt-2"> Qualification </h5>
+                            {% if user.qualification %}
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -75,22 +84,24 @@
                                             <th scope="col">Course Title</th>
                                         </tr>
                                     </thead>
-                                    {% for qualification in qualifications %}
+                                    {% for qualification in user.qualification %}
                                         <tbody>
                                             <tr>
                                                 <th scope="row">{{ loop.index }}</th>
                                                 <td>
-                                                    <a class='qualification-title' href="{{ url_for('qualifications_blueprint.curr_qualification',qualification_id=qualification.id)}}">
-                                                        {{ qualification.course }}
-                                                    </a>
+                                                    {{ qualification.course }}
                                                 </td>
                                             </tr>
                                         </tbody>
                                     {% endfor %}
                                 </table>
+                            {% else %}
+                                <p>No qualifications added yet</p>
+                            {% endif %}
                         </div>
                         <div class="col-md-4">
                             <h5 class="mb-2 mt-2">Experience</h5>
+                            {% if user.experience %}
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -109,6 +120,9 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        {% else %}
+                            <p>User is yet to add their experience </p>
+                        {% endif %}
                         </div>
                     </div>
                 </div>
@@ -117,6 +131,6 @@
     </div>
 
 {% if current_user.id == user.id %}
-    <a class="btn btn-secondary" href="{{url_for('main.editprofile')}}" role="button">Edit Profile</a>
+    <a class="btn btn-secondary mt-2" href="{{url_for('main.editprofile')}}" role="button">Edit Profile</a>
 {% endif %}
 {% endblock content %}

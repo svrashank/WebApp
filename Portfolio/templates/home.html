@@ -2,38 +2,35 @@
 {% block content %}
 <div class="jumbotron">
   <h1 class="display-4">Profiles</h1>
-  <!-- <p class="lead">Add up to seven skills most relevant to you</p> -->
   <hr class="my-4">
   <div class="post-section">
     {% for user in users.items %}
       <article class="media content-section mt-3">
-
-          <img src="{{ url_for('static',filename='profile_pics/' + user.image_file) }}" alt="Profile Picture Post" class="mr-3 img-fluid rounded-circle home-profile-image" width="50">
+          <img src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}" alt="Profile Picture Post" class="mr-3 img-fluid rounded-circle home-profile-image" width="50">
           <div class="media-body">
               <div class="article-metadata">
-                  <a class="mr-2" href="{{ url_for('main.user_profile',username=user.username)}}">{{ user.username }}</a>
+                  <a class="mr-2" href="{{ url_for('main.user_profile', username=user.username) }}">{{ user.username }}</a>
                   <small class="text-muted">{{ user.experience }}</small>
               </div>
               <p class="article-title" href="#">{{ user.profile_overview }}</p>
               <!-- Add more post details as needed -->
           </div>
       </article>
-      {% endfor %}
-      {% for page_num in users.iter_pages(left_edge = 1 ,right_edge = 1,left_current = 1 ,right_current = 2) %}
-        {% if page_num %}
-          {% if users.page == page_num %}
-            <a class='btn btn-info mb-4' href="{{ url_for('main.home',page=page_num) }}">{{ page_num }}</a>
-          {% else %}
-            <a class='btn btn-outline-info mb-4' href="{{ url_for('main.home',page=page_num) }}">{{ page_num }}</a>
-          {% endif %}
-          
-        {% else %}
-          ...
-        {% endif %}
+    {% endfor %}
 
-      {% endfor %}
-
-  </div>    
+    
+              {% for page_num in users.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                {% if page_num %}
+                  {% if users.page == page_num %}
+                    <a class='btn btn-info mb-2' href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                  {% else %}
+                    <a class='btn btn-outline-light  mb-2' href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                  {% endif %}
+                {% else %}
+                  ...
+                {% endif %}
+              {% endfor %}
+         
+  </div>
 </div>
-
 {% endblock content %}
